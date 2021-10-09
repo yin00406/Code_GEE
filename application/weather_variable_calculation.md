@@ -65,9 +65,9 @@ for(var yearStart=2010; yearStart<=2018; yearStart++){
     var name = region.get("NAME")
     var tmp = pre_hist.filterMetadata('NAME', "equals", name)
     tmp = tmp.aggregate_sum("mean")
-    var num = hist.get('NAME')
+    var num = hist.get(name)
     var hdd = tmp.subtract(ee.Number(num).multiply(18.3))
-    region = region.set(["hdd", "year"], [hdd, yearStart])
+    region = region.set({"hdd":hdd, "year":yearStart, "NAME":name})
     return region
   })
   
@@ -75,6 +75,7 @@ for(var yearStart=2010; yearStart<=2018; yearStart++){
 }
 var all_hdd_fcol = ee.FeatureCollection(all_hdd)
 var all_hdd_fcol_flatten = all_hdd_fcol.flatten()
+// print("all_hdd_fcol_flatten", all_hdd_fcol_flatten)
 
 Export.table.toDrive({
       collection: all_hdd_fcol_flatten,
