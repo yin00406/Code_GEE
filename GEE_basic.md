@@ -13,6 +13,19 @@ Map.centerObject(table_example, 5)
 
 ```
 
+## Output data
+
+```javascript
+Export.table.toDrive({
+  collection: table,
+  description: 'table',
+  folder: 'CDL',
+  fileFormat: 'SHP'
+})
+```
+
+
+
 ## Date
 
 ```javascript
