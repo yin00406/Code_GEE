@@ -7,9 +7,9 @@
 ## Load data
 
 ```javascript
-Map.addLayer(table_example)
-
+Map.addLayer(table_example, {color: 'orange'}, "t")
 Map.centerObject(table_example, 5)
+Map.setOptions("HYBRID") // TERRAIN
 
 ```
 
