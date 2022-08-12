@@ -14,7 +14,7 @@ FeatureCollection = ee.FeatureCollection(List)
 
 ```
 
-#### Property related
+### Operations related to property
 
 ```javascript
 // use .get() when you want to get a property
@@ -22,20 +22,30 @@ Feature.first().get('NAME') // column is a summary of each feature properties
 // Image has the same function
 ```
 
+### Buffer and morphological operations
 
+#### Compute centroids and buffers for FeatureCollection
 
-## FeatureCollection
+````javascript
+var polygons = ee.FeatureCollection('xxxxx');
 
-```javascript
-// creat a empty featurecollection
-var list = []
-FeatureCollection = ee.FeatureCollection(List)
+var getCentroids = function(feature) {
+  return feature.set({polyCent: feature.centroid()});
+};
 
-FeatureCollection = FeatureCollection.merge(FeatureCollection_1) // In general, if many collections need to be merged, consider placing them all in a collection and using FeatureCollection.flatten() instead. Repeated use of FeatureCollection.merge() will result in increasingly long element IDs and reduced performance.
+var bufferPoly = function(feature) {
+  return feature.buffer(Z);   // substitute in your value of Z here, unit is meter
+};
 
-```
+var fcWithCentroids = polygons.map(getCentroids);
+print(fcWithCentroids) // access the features and look at the properties, for which there should be a point with the centroid coords
 
-#### An example about how to simplify the geometry of FeatureCollection
+var bufferedPolys = polygons.map(bufferPoly);
+Map.addLayer(bufferedPolys, {}, 'Buffered polygons');
+Map.addLayer(polygons, {}, 'Unbuffered polygons'); // for comparison
+````
+
+#### Simplify the geometry of FeatureCollection
 
 ```javascript
 // Set map center over the state of CT.
@@ -64,4 +74,19 @@ var mappedCentroid = countyConnect.map(performMap);
 // Add the layer to the map with a specified color and layer name.
 Map.addLayer(mappedCentroid, {color: 'blue'}, 'Mapped buffed centroids');
 ```
+
+
+
+## FeatureCollection
+
+```javascript
+// creat a empty featurecollection
+var list = []
+FeatureCollection = ee.FeatureCollection(List)
+
+FeatureCollection = FeatureCollection.merge(FeatureCollection_1) // In general, if many collections need to be merged, consider placing them all in a collection and using FeatureCollection.flatten() instead. Repeated use of FeatureCollection.merge() will result in increasingly long element IDs and reduced performance.
+
+```
+
+### Wait for analysis
 
