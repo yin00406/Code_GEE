@@ -74,6 +74,30 @@ Export.table.toDrive({
 })
 ```
 
+### batch expot
+
+```javascript
+/ ** 
+
+ 批量执行GEE导出任务 
+ 首先，您需要生成导出任务。并显示了运行按钮。 
+ 然后按F12进入控制台，然后将这些脚本粘贴到其中，然后按 
+ 输入。所有任务都将自动启动。
+* /
+
+function runTaskList() {
+    var runButtons = document.querySelector('#task-pane').shadowRoot.querySelectorAll(".run-button")
+     runButtons.forEach(function(e) {e.click()})
+}
+runTaskList()
+setTimeout( 
+    function(){
+       var taskDialog = document.querySelectorAll("ee-image-config-dialog") //table的话-image-改成-table-
+        taskDialog.forEach(function(e) {e.shadowRoot.querySelector("ee-dialog").shadowRoot.querySelector("paper-dialog").querySelector(".ok-button").click()})
+ },5 * 1000 );  
+
+```
+
 
 
 ## Date
