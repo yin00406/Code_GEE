@@ -7,9 +7,14 @@
 ## Load data
 
 ```javascript
+// Basemap types
+Map.setOptions('HYBRID');
+Map.setOptions('ROADMAP');
+Map.setOptions('SATELLITE');
+Map.setOptions('TERRAIN');
+
 //t table data
 Map.addLayer(table_example, {color: 'orange'}, "t")
-
 
 //t image data
 // A Sentinel-2 surface reflectance image.
