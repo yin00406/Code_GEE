@@ -13,3 +13,7 @@ ee.Authenticate()
 ee.Initialize()
 ```
 
+## geeup
+
+​	Batch upload table files
+
