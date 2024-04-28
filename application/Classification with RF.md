@@ -37,7 +37,12 @@ var PRED_MAP = features.classify(trainedRF)
 
 ## Possible problems when you save RF model
 
-If you config `numberOfTrees` with a large number (say `300`), when print `trees` in line 14, you may find that fewer than 300 trees are printed in line 14. This may because there is an upper limit for string output. In the early-prediction case, the upper limit is 130.
+If you config `numberOfTrees` with a large number (say `300`), when print `trees` in line 14, you may find that fewer than 300 trees are printed in line 14. This may because there is an upper limit for string output. In the early-prediction case, the upper limit is 130. If you don't want to check for each RF model training, just use the following code.
+
+```javascript
+var trees_size = ee.FeatureCollection(RF_model).aggregate_array('tree').size()
+var trees = ee.FeatureCollection(RF_model).aggregate_array('tree').slice(0,trees_size.subtract(2))
+```
 
 ## Alternative code
 
